@@ -5,11 +5,12 @@
   --font-serif: 'Playfair Display', serif;
 }
 
-/* Tema White Cube per il portfolio Artista */
-body {
-  @apply font-sans bg-white text-zinc-900 antialiased;
-}
+@layer base {
+  body {
+    @apply font-sans bg-white text-zinc-900 antialiased;
+  }
 
-h1, h2, h3, h4, h5, h6 {
-  @apply font-serif text-zinc-950;
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif text-zinc-950;
+  }
 }

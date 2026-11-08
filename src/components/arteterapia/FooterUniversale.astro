@@ -9,7 +9,7 @@ const link = (path: string) => base === '/' ? path : `${base.replace(/\/$/, '')}
     
     <!-- Colonna 1: Identità + Social Arteterapia -->
     <div>
-      <h4 class="text-xl font-serif text-white mb-4">Cristiana Scoppetta</h4>
+      <h4 class="text-xl font-serif text-white! mb-4">Cristiana Scoppetta</h4>
       <p class="text-sm leading-relaxed mb-6">
         Sociologa, artista e arteterapeuta in formazione.<br/>
         Uno spazio di ascolto, espressione e benessere attraverso il processo creativo.
@@ -43,9 +43,9 @@ const link = (path: string) => base === '/' ? path : `${base.replace(/\/$/, '')}
       </div>
     </div>
 
-    <!-- Colonna 2: Navigazione trasversale (Senza Sociologa) -->
+    <!-- Colonna 2: Navigazione trasversale -->
     <div>
-      <h4 class="text-lg text-white mb-4 font-serif">I miei mondi</h4>
+      <h4 class="text-lg text-white! mb-4 font-serif">I miei mondi</h4>
       <ul class="space-y-2 text-sm">
         <li><a href={link('/arteterapia')} class="hover:text-white transition-colors">Arteterapia (Il percorso)</a></li>
         <li><a href={link('/artista')} class="hover:text-white transition-colors">Artista (Il portfolio)</a></li>
@@ -56,7 +56,7 @@ const link = (path: string) => base === '/' ? path : `${base.replace(/\/$/, '')}
 
     <!-- Colonna 3: Riferimenti -->
     <div>
-      <h4 class="text-lg text-white mb-4 font-serif">Riferimenti</h4>
+      <h4 class="text-lg text-white! mb-4 font-serif">Riferimenti</h4>
       <ul class="space-y-2 text-sm">
         <li>
           <a href="https://evolutionaccademia.it/" target="_blank" rel="noopener noreferrer" class="underline hover:text-white transition-colors">
@@ -68,7 +68,7 @@ const link = (path: string) => base === '/' ? path : `${base.replace(/\/$/, '')}
 
   </div>
   
-  <div class="max-w-6xl mx-auto px-6 mt-12 pt-6 border-t border-stone-700 text-sm text-center text-stone-500">
+  <div class="max-w-6xl mx-auto px-6 mt-12 pt-6 border-t border-stone-700 text-sm text-center text-stone-400">
     &copy; {new Date().getFullYear()} Cristiana Scoppetta. Tutti i diritti riservati.
   </div>
 </footer>

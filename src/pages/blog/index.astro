@@ -107,11 +107,14 @@ function labelCategoria(cat?: string) {
 <script>
   const buttons = document.querySelectorAll('.filter-btn');
   const cards = document.querySelectorAll('.blog-card') as NodeListOf<HTMLElement>;
+  const socialArteterapia = document.getElementById('footer-social-arteterapia');
+  const socialArtista = document.getElementById('footer-social-artista');
 
   buttons.forEach(btn => {
     btn.addEventListener('click', () => {
       const filter = btn.getAttribute('data-filter');
 
+      // 1. Stile attivo dei bottoni filtro
       buttons.forEach(b => {
         b.classList.remove('bg-stone-900', 'text-white');
         b.classList.add('bg-white', 'text-stone-700');
@@ -119,6 +122,7 @@ function labelCategoria(cat?: string) {
       btn.classList.remove('bg-white', 'text-stone-700');
       btn.classList.add('bg-stone-900', 'text-white');
 
+      // 2. Filtro delle card degli articoli (se presenti)
       cards.forEach(card => {
         const cat = card.getAttribute('data-categoria');
         if (filter === 'tutti' || cat === filter) {
@@ -127,6 +131,27 @@ function labelCategoria(cat?: string) {
           card.style.display = 'none';
         }
       });
+
+      // 3. Aggiornamento dinamico delle icone social nel Footer in base al bottone scelto
+      if (socialArteterapia && socialArtista) {
+        if (filter === 'arteterapia') {
+          socialArteterapia.classList.remove('hidden');
+          socialArteterapia.classList.add('flex');
+          socialArtista.classList.remove('flex');
+          socialArtista.classList.add('hidden');
+        } else if (filter === 'artista') {
+          socialArtista.classList.remove('hidden');
+          socialArtista.classList.add('flex');
+          socialArteterapia.classList.remove('flex');
+          socialArteterapia.classList.add('hidden');
+        } else {
+          // Filtro "Tutti": nasconde entrambi i social specifici
+          socialArteterapia.classList.remove('flex');
+          socialArteterapia.classList.add('hidden');
+          socialArtista.classList.remove('flex');
+          socialArtista.classList.add('hidden');
+        }
+      }
     });
   });
 </script>
