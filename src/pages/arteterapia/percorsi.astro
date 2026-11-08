@@ -1,0 +1,69 @@
+---
+// src/pages/arteterapia/percorsi.astro
+export const prerender = true;
+
+import Layout from '../../layouts/arteterapia/Layout.astro';
+
+const base = import.meta.env.BASE_URL;
+const link = (path: string) => base === '/' ? path : `${base.replace(/\/$/, '')}${path.startsWith('/') ? '' : '/'}${path}`;
+---
+
+<Layout 
+  title="Cosa Offro: Percorsi e Laboratori | Cristiana Scoppetta"
+  description="Percorsi di arteterapia individuali e laboratori espressivi di gruppo per adulti, adolescenti e bambini a Trieste e online."
+>
+  <section class="bg-stone-100 py-16 px-6 text-center">
+    <div class="max-w-3xl mx-auto">
+      <h1 class="text-4xl md:text-5xl font-serif text-stone-800 mb-4">Come possiamo lavorare insieme</h1>
+      <p class="text-lg text-stone-600 leading-relaxed">
+        Percorsi di arteterapia individuali e laboratori di gruppo pensati per adulti, adolescenti e bambini, in presenza e online.
+      </p>
+    </div>
+  </section>
+
+  <!-- Tipologie di percorsi -->
+  <section class="py-16 px-6 max-w-5xl mx-auto grid md:grid-cols-2 gap-8">
+    <div class="bg-white p-8 rounded-2xl shadow-xs border border-stone-200 flex flex-col">
+      <h2 class="text-2xl font-serif text-stone-800 mb-3">Incontri Individuali</h2>
+      <p class="text-stone-600 leading-relaxed mb-6 grow">
+        Uno spazio riservato e su misura in cui esplorare i propri vissuti emotivi attraverso materiali artistici diversi (pittura, collage, argilla, disegno spontaneo), con un accompagnamento attento e mai giudicante.
+      </p>
+      <span class="text-xs font-bold uppercase tracking-wider text-teal-700">In studio / Online</span>
+    </div>
+
+    <div class="bg-white p-8 rounded-2xl shadow-xs border border-stone-200 flex flex-col">
+      <h2 class="text-2xl font-serif text-stone-800 mb-3">Laboratori di Gruppo</h2>
+      <p class="text-stone-600 leading-relaxed mb-6 grow">
+        Esperienze condivise in piccoli gruppi tematici per stimolare la creatività, allentare lo stress quotidiano e riscoprire il piacere dell'espressione autentica nel rispetto dei tempi di ciascuno.
+      </p>
+      <span class="text-xs font-bold uppercase tracking-wider text-teal-700">Piccoli gruppi / Tematici</span>
+    </div>
+  </section>
+
+  <!-- Domande Frequenti -->
+  <section class="pb-20 px-6 max-w-4xl mx-auto">
+    <div class="bg-white p-8 md:p-10 rounded-2xl shadow-xs border border-stone-200 space-y-6">
+      <h2 class="text-2xl md:text-3xl font-serif text-stone-800 mb-4">Domande Frequenti</h2>
+      
+      <div class="border-b border-stone-100 pb-5">
+        <p class="font-bold text-stone-800">D: Devo saper disegnare o dipingere?</p>
+        <p class="text-stone-600 mt-2 leading-relaxed">
+          R: Assolutamente no. L'arteterapia non valuta mai il risultato estetico o la tecnica, ma valorizza il processo creativo spontaneo come strumento di ascolto e benessere.
+        </p>
+      </div>
+
+      <div class="border-b border-stone-100 pb-5">
+        <p class="font-bold text-stone-800">D: Quali materiali vengono utilizzati?</p>
+        <p class="text-stone-600 mt-2 leading-relaxed">
+          R: Acquerelli, tempere, pastelli, gessetti, collage, carte materiche e materiali di recupero. Ogni materiale stimola risonanze sensoriali ed emotive differenti.
+        </p>
+      </div>
+
+      <div class="pt-4 text-center">
+        <a href={link('/arteterapia/contatti')} class="inline-block bg-teal-700 text-white px-7 py-3 rounded-full font-medium hover:bg-teal-800 transition-colors">
+          Richiedi informazioni o prenota un colloquio conoscitivo
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>

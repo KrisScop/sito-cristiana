@@ -1,0 +1,46 @@
+---
+// src/pages/arteterapia/chi-sono.astro
+export const prerender = true;
+
+import Layout from '../../layouts/arteterapia/Layout.astro';
+
+const base = import.meta.env.BASE_URL;
+const link = (path: string) => base === '/' ? path : `${base.replace(/\/$/, '')}${path.startsWith('/') ? '' : '/'}${path}`;
+---
+
+<Layout 
+  title="Chi Sono | Cristiana Scoppetta - Arteterapia"
+  description="Scopri il percorso di Cristiana Scoppetta: dall'indagine sociologica e la pratica artistica fino alla formazione in arteterapia presso Evolution Accademia."
+>
+  <section class="py-16 md:py-20 px-6 max-w-3xl mx-auto">
+    <h1 class="text-4xl md:text-5xl font-serif text-stone-800 mb-8">Chi Sono</h1>
+    
+    <div class="space-y-6 text-stone-700 text-lg leading-relaxed font-sans">
+      <p>
+        Benvenuto. Sono <strong>Cristiana Scoppetta</strong>, artista, sociologa e arteterapeuta in formazione.
+      </p>
+      
+      <p>
+        Il mio approccio unisce la sensibilità dell'osservazione sociologica alla forza trasformativa del linguaggio visivo. Fin dall'infanzia l'arte è stata il mio rifugio e il mio modo più autentico di dialogare con il mondo; nel tempo ho compreso come il gesto creativo possa diventare una bussola preziosa per attraversare i momenti complessi della vita, sciogliere le tensioni e ritrovare <strong>centratura e chiarezza interiore</strong>.
+      </p>
+
+      <h2 class="text-2xl font-serif text-stone-800 pt-4">Dall'esperienza personale alla relazione d'aiuto</h2>
+      <p>
+        Dopo anni dedicati alla ricerca artistica e all'insegnamento dell'arte a bambini e adulti, nel 2020 ho sperimentato in prima persona un percorso di arteterapia. Quell'esperienza mi ha mostrato quanto il processo creativo — libero dal giudizio estetico e dal bisogno di "fare qualcosa di bello" — permetta di dare forma e voce a ciò che spesso le parole non riescono a esprimere.
+      </p>
+
+      <p>
+        Oggi integro queste competenze frequentando la scuola triennale di Arteterapia presso <a href="https://evolutionaccademia.it/" target="_blank" rel="noopener noreferrer" class="text-teal-700 underline hover:text-teal-900">Evolution Accademia</a> a Udine (percorso formativo conforme alla norma UNI 11592), accompagnando le persone in spazi protetti di ascolto, espressione libera e crescita personale.
+      </p>
+    </div>
+
+    <div class="mt-12 pt-8 border-t border-stone-200 flex flex-wrap gap-4">
+      <a href={link('/arteterapia/percorsi')} class="bg-teal-700 text-white px-6 py-3 rounded-full font-medium hover:bg-teal-800 transition-colors text-sm">
+        Scopri i percorsi che offro &rarr;
+      </a>
+      <a href={link('/blog')} class="bg-stone-200 text-stone-800 px-6 py-3 rounded-full font-medium hover:bg-stone-300 transition-colors text-sm">
+        Leggi il mio Blog
+      </a>
+    </div>
+  </section>
+</Layout>

@@ -1,0 +1,99 @@
+---
+// src/pages/arteterapia/index.astro
+export const prerender = true;
+
+import Layout from '../../layouts/arteterapia/Layout.astro';
+import Hero from '../../components/arteterapia/Hero.astro';
+import ServiceCard from '../../components/arteterapia/ServiceCard.astro';
+import { Image } from 'astro:assets';
+import fotoProfilo from '../../assets/arteterapia/cristiana-arteterapia.png';
+
+const base = import.meta.env.BASE_URL;
+const link = (path: string) => base === '/' ? path : `${base.replace(/\/$/, '')}${path.startsWith('/') ? '' : '/'}${path}`;
+---
+
+<Layout 
+  title="Arteterapia a Trieste e Online | Cristiana Scoppetta"
+  description="Spazio di arteterapia a Trieste e online con Cristiana Scoppetta. Percorsi individuali e di gruppo per ritrovare calma, serenità ed equilibrio emotivo attraverso l'espressione creativa."
+>
+  <!-- Immagine profilo appena sotto l'Header -->
+  <section class="max-w-3xl mx-auto px-6 pt-12 pb-6">
+    <Image 
+      src={fotoProfilo} 
+      alt="Cristiana Scoppetta - Arteterapia" 
+      class="w-full h-auto rounded-2xl shadow-lg"
+      width={1200}
+    />
+  </section>
+
+  <!-- 1. Componente Hero -->
+  <Hero />
+
+  <!-- 2. SEZIONE CHI SONO -->
+  <section class="py-16 px-6">
+    <div class="max-w-4xl mx-auto">
+      <h2 class="text-3xl font-serif text-stone-800 mb-8 text-center">Chi Sono</h2>
+      
+      <div class="text-stone-700 leading-relaxed max-w-2xl mx-auto text-lg space-y-8 font-sans">
+        <p>
+          Uso la creatività artistica fin da piccola come spazio personale di gioia e di espressione. Nei momenti difficili ho scoperto che l'arte non è solo un semplice sfogo, ma una vera risorsa per ritrovare <strong>calma, serenità e lucidità</strong>.
+        </p>
+
+        <div>
+          <h3 class="text-2xl font-serif text-stone-800 mb-4 border-b border-stone-200 pb-2">Il mio percorso nell'arte</h3>
+          <ul class="space-y-4">
+            <li class="flex items-start">
+              <span class="text-teal-600 mr-3 mt-1">&#x27A4;</span>
+              <span><strong>Esperienza:</strong> Ho insegnato l'arte a bambini e adulti in forme diverse.</span>
+            </li>
+            <li class="flex items-start">
+              <span class="text-teal-600 mr-3 mt-1">&#x27A4;</span>
+              <span><strong>La svolta:</strong> Nel 2020 ho provato in prima persona un percorso di arteterapia.</span>
+            </li>
+            <li class="flex items-start">
+              <span class="text-teal-600 mr-3 mt-1">&#x27A4;</span>
+              <span><strong>La formazione:</strong> Oggi frequento la scuola triennale di arteterapia <a href="https://evolutionaccademia.it/" target="_blank" rel="noopener noreferrer" class="underline hover:text-teal-600 transition-colors"><em>Evolution Accademia</em></a> a Udine, riconosciuta secondo la norma UNI 11592.</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="pt-2 text-center">
+          <a href={link('/arteterapia/chi-sono')} class="inline-block text-teal-700 font-medium hover:text-teal-900 underline underline-offset-4 transition-colors">
+            Approfondisci la mia storia &rarr;
+          </a>
+        </div>
+      </div>
+      
+    </div>
+  </section>
+
+  <!-- 3. SEZIONE COSA OFFRO (Cards) -->
+  <section class="bg-stone-100 py-16 px-6">
+    <div class="max-w-6xl mx-auto">
+      <h2 class="text-3xl font-serif text-stone-800 mb-10 text-center">Cosa propongo</h2>
+      
+      <div class="grid md:grid-cols-3 gap-6">
+        <ServiceCard 
+          title="Corsi e Percorsi" 
+          description="Incontri e percorsi dedicati a chi vuole sviluppare la propria autoconsapevolezza." 
+        />
+        
+        <ServiceCard 
+          title="Benessere Interiore" 
+          description="Attività pensate per ritrovare la calma interiore." 
+        />
+
+        <ServiceCard 
+          title="Crescita Personale" 
+          description="Strumenti utili per migliorare la reazione allo stress e alle difficoltà della vita di tutti i giorni." 
+        />
+      </div>
+
+      <div class="mt-10 text-center">
+        <a href={link('/arteterapia/percorsi')} class="inline-block bg-teal-700 text-white px-7 py-3 rounded-full font-medium hover:bg-teal-800 transition-colors shadow-xs">
+          Scopri come possiamo lavorare insieme
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>

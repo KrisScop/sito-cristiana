@@ -1,0 +1,76 @@
+---
+// src/pages/arteterapia/metodologie.astro
+export const prerender = true;
+
+import Layout from '../../layouts/arteterapia/Layout.astro';
+
+const base = import.meta.env.BASE_URL;
+const link = (path: string) => base === '/' ? path : `${base.replace(/\/$/, '')}${path.startsWith('/') ? '' : '/'}${path}`;
+---
+
+<Layout 
+  title="Metodologie e Approccio | Cristiana Scoppetta - Arteterapia"
+  description="Scopri come funziona una sessione di arteterapia: il setting non giudicante, il dialogo con i materiali artistici e il riferimento alla norma UNI 11592."
+>
+  <section class="bg-stone-100 py-16 px-6 text-center">
+    <div class="max-w-3xl mx-auto">
+      <h1 class="text-4xl md:text-5xl font-serif text-stone-800 mb-4">Il Metodo e il Processo Creativo</h1>
+      <p class="text-lg text-stone-600 leading-relaxed">
+        In arteterapia l'opera non viene mai valutata esteticamente né "interpretata" dall'esterno: ciò che conta è l'esperienza viva che accade mentre crei.
+      </p>
+    </div>
+  </section>
+
+  <section class="py-16 px-6 max-w-5xl mx-auto space-y-12">
+    
+    <!-- I 3 pilastri del metodo -->
+    <div class="grid md:grid-cols-3 gap-8">
+      <div class="bg-white p-8 rounded-2xl shadow-xs border border-stone-200">
+        <span class="text-xs font-bold uppercase tracking-widest text-teal-700 block mb-2">01. L'Ambiente</span>
+        <h2 class="text-2xl font-serif text-stone-800 mb-3">Lo Spazio Protetto</h2>
+        <p class="text-stone-600 leading-relaxed text-sm">
+          Il laboratorio (il <em>setting</em>) è un luogo sicuro, riservato e libero dal giudizio. Qui puoi rallentare, lasciare fuori le aspettative di prestazione e concederti il permesso di sperimentare.
+        </p>
+      </div>
+
+      <div class="bg-white p-8 rounded-2xl shadow-xs border border-stone-200">
+        <span class="text-xs font-bold uppercase tracking-widest text-teal-700 block mb-2">02. L'Azione</span>
+        <h2 class="text-2xl font-serif text-stone-800 mb-3">Il Dialogo con i Materiali</h2>
+        <p class="text-stone-600 leading-relaxed text-sm">
+          Dalla fluidità dell'acquerello alla concretezza della creta o del collage: ogni materiale artistico attiva canali sensoriali diversi, aiutando a dare una forma visibile e tangibile agli stati d'animo.
+        </p>
+      </div>
+
+      <div class="bg-white p-8 rounded-2xl shadow-xs border border-stone-200">
+        <span class="text-xs font-bold uppercase tracking-widest text-teal-700 block mb-2">03. L'Integrazione</span>
+        <h2 class="text-2xl font-serif text-stone-800 mb-3">La Condivisione</h2>
+        <p class="text-stone-600 leading-relaxed text-sm">
+          Al termine del momento espressivo, osserviamo insieme l'elaborato. Attraverso un ascolto empatico, ti accompagno a cogliere i significati personali e le risorse emerse durante la creazione.
+        </p>
+      </div>
+    </div>
+
+    <!-- Approfondimento sul quadro normativo e deontologico -->
+    <div class="bg-white p-8 md:p-10 rounded-2xl shadow-xs border border-stone-200 max-w-4xl mx-auto">
+      <h2 class="text-2xl md:text-3xl font-serif text-stone-800 mb-4">Un approccio fondato e strutturato</h2>
+      <div class="space-y-4 text-stone-600 leading-relaxed">
+        <p>
+          La mia pratica si fonda sul modello formativo triennale di <strong>Evolution Accademia</strong> (conforme agli standard della <strong>norma tecnica UNI 11592</strong> per le arti terapie) e dialoga con il mio bagaglio di ricerca artistica e osservazione sociologica.
+        </p>
+        <p>
+          I percorsi proposti si collocano nell'ambito della promozione del benessere, dello sviluppo della creatività e della crescita personale. Non hanno finalità diagnostiche o psicoterapeutiche, ma affiancano la persona nel potenziare le proprie risorse emotive ed espressive.
+        </p>
+      </div>
+
+      <div class="mt-8 pt-6 border-t border-stone-100 flex flex-wrap justify-between items-center gap-4">
+        <a href={link('/arteterapia/percorsi')} class="text-teal-700 font-medium hover:text-teal-900 underline underline-offset-4">
+          &larr; Guarda i percorsi disponibili
+        </a>
+        <a href={link('/arteterapia/contatti')} class="bg-teal-700 text-white px-7 py-3 rounded-full font-medium hover:bg-teal-800 transition-colors text-sm">
+          Prenota un colloquio conoscitivo &rarr;
+        </a>
+      </div>
+    </div>
+
+  </section>
+</Layout>

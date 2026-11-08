@@ -1,0 +1,59 @@
+---
+// src/layouts/blog/BaseLayout.astro
+import '../../styles/blog/global.css';
+import Header from '../../components/blog/Header.astro';
+import Footer from '../../components/blog/FooterUniversale.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+  categoria?: 'arteterapia' | 'artista' | 'generico' | string;
+}
+
+const { 
+  title = "Blog di Arteterapia e Ricerca Artistica | Cristiana Scoppetta", 
+  description = "Articoli, riflessioni sull'arteterapia, processi creativi, benessere emotivo e diario d'atelier di Cristiana Scoppetta.",
+  categoria
+} = Astro.props;
+
+const base = import.meta.env.BASE_URL;
+const faviconUrl = base === '/' ? '/favicon.svg' : `${base}/favicon.svg`;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!DOCTYPE html>
+<html lang="it" class="scroll-smooth">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href={faviconUrl} />
+    <meta name="generator" content={Astro.generator} />
+    
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+    
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Cristiana Scoppetta - Blog" />
+    <meta property="og:locale" content="it_IT" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  </head>
+  
+  <body class="flex flex-col min-h-screen text-stone-800 bg-stone-50 font-sans antialiased">
+    
+    <Header />
+
+    <main class="grow">
+      <slot />
+    </main>
+
+    <Footer categoria={categoria} />
+
+  </body>
+</html>

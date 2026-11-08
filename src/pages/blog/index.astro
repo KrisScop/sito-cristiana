@@ -1,0 +1,132 @@
+---
+// src/pages/blog/index.astro
+export const prerender = true;
+
+import BaseLayout from '../../layouts/blog/BaseLayout.astro';
+import { getCollection, type CollectionEntry } from 'astro:content';
+import { Image } from 'astro:assets';
+
+const base = import.meta.env.BASE_URL;
+const link = (path: string) => base === '/' ? path : `${base.replace(/\/$/, '')}${path.startsWith('/') ? '' : '/'}${path}`;
+
+const tuttiGliArticoli: CollectionEntry<'blog'>[] = await getCollection('blog');
+const articoliPubblicati = tuttiGliArticoli.filter((articolo: CollectionEntry<'blog'>) => !articolo.data.bozza);
+
+const articoliOrdinati = articoliPubblicati.sort((a: CollectionEntry<'blog'>, b: CollectionEntry<'blog'>) => {
+  if (!a.data.dataPubblicazione) return 1;
+  if (!b.data.dataPubblicazione) return -1;
+  return new Date(b.data.dataPubblicazione).getTime() - new Date(a.data.dataPubblicazione).getTime();
+});
+
+function formattaData(dataString: Date | undefined | null) {
+  if (!dataString) return '';
+  return new Date(dataString).toLocaleDateString('it-IT', { day: 'numeric', month: 'long', year: 'numeric' });
+}
+
+function labelCategoria(cat?: string) {
+  if (cat === 'arteterapia') return 'Arteterapia';
+  if (cat === 'artista') return 'Artista';
+  return 'Riflessioni';
+}
+---
+
+<BaseLayout title="Blog di Arteterapia e Ricerca Artistica | Cristiana Scoppetta">
+  
+  <section class="bg-terracotta/10 py-16 px-4 text-center">
+    <div class="max-w-3xl mx-auto">
+      <h1 class="text-4xl md:text-5xl font-bold mb-4 text-stone-900 font-serif">Diario di Ricerca e Creatività</h1>
+      <p class="text-lg text-stone-700 font-light leading-relaxed mb-8">
+        Riflessioni sull'arteterapia, processi creativi, benessere emotivo e appunti d'atelier.
+      </p>
+
+      <div class="flex flex-wrap justify-center gap-3" id="blog-filters">
+        <button data-filter="tutti" class="filter-btn bg-stone-900 text-white px-5 py-2 rounded-full text-xs uppercase tracking-wider font-medium transition-colors cursor-pointer">
+          Tutti
+        </button>
+        <button data-filter="arteterapia" class="filter-btn bg-white text-stone-700 hover:bg-stone-200 px-5 py-2 rounded-full text-xs uppercase tracking-wider font-medium transition-colors cursor-pointer">
+          Arteterapia
+        </button>
+        <button data-filter="artista" class="filter-btn bg-white text-stone-700 hover:bg-stone-200 px-5 py-2 rounded-full text-xs uppercase tracking-wider font-medium transition-colors cursor-pointer">
+          Artista
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16 px-4 bg-white">
+    {articoliOrdinati.length === 0 ? (
+      <div class="max-w-2xl mx-auto text-center py-12">
+        <p class="text-stone-500 text-lg">I primi articoli saranno pubblicati a breve.</p>
+      </div>
+    ) : (
+      <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="blog-grid">
+        {articoliOrdinati.map((articolo: CollectionEntry<'blog'>) => (
+          <article 
+            data-categoria={articolo.data.categoria || 'generico'}
+            class="blog-card bg-white border border-stone-100 rounded-3xl p-6 hover:shadow-xl hover:-translate-y-2 transition-all duration-300 flex flex-col h-full"
+          >
+            {articolo.data.immagineCopertina && (
+              <a href={link(`/blog/${articolo.id}/`)} class="block mb-5 shrink-0">
+                <Image 
+                  src={articolo.data.immagineCopertina} 
+                  alt={articolo.data.titolo} 
+                  class="w-full h-48 object-cover rounded-2xl" 
+                />
+              </a>
+            )}
+
+            <div class="flex items-center justify-between gap-2 mb-2">
+              <span class="text-[11px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-beige text-terracotta">
+                {labelCategoria(articolo.data.categoria)}
+              </span>
+              <span class="text-xs text-cartazucchero font-semibold uppercase tracking-wider">
+                {formattaData(articolo.data.dataPubblicazione)}
+              </span>
+            </div>
+
+            <h2 class="text-xl font-bold font-serif mb-3 text-stone-900 line-clamp-2">
+              <a href={link(`/blog/${articolo.id}/`)} class="hover:text-terracotta transition-colors">
+                {articolo.data.titolo}
+              </a>
+            </h2>
+
+            <p class="text-sm text-stone-600 mb-6 grow line-clamp-3">
+              {articolo.data.riassunto}
+            </p>
+
+            <a href={link(`/blog/${articolo.id}/`)} class="text-terracotta font-medium text-sm hover:underline mt-auto">
+              Leggi l'articolo &rarr;
+            </a>
+          </article>
+        ))}
+      </div>
+    )}
+  </section>
+</BaseLayout>
+
+<script>
+  const buttons = document.querySelectorAll('.filter-btn');
+  const cards = document.querySelectorAll('.blog-card') as NodeListOf<HTMLElement>;
+
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const filter = btn.getAttribute('data-filter');
+
+      buttons.forEach(b => {
+        b.classList.remove('bg-stone-900', 'text-white');
+        b.classList.add('bg-white', 'text-stone-700');
+      });
+      btn.classList.remove('bg-white', 'text-stone-700');
+      btn.classList.add('bg-stone-900', 'text-white');
+
+      cards.forEach(card => {
+        const cat = card.getAttribute('data-categoria');
+        if (filter === 'tutti' || cat === filter) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    });
+  });
+</script>

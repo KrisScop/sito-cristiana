@@ -1,0 +1,58 @@
+---
+// src/layouts/arteterapia/Layout.astro
+import "../../styles/arteterapia/global.css";
+import Header from '../../components/arteterapia/Header.astro';
+import FooterUniversale from '../../components/arteterapia/FooterUniversale.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { 
+  title = "Arteterapia a Trieste e Online | Cristiana Scoppetta", 
+  description = "Percorsi individuali e di gruppo di arteterapia con Cristiana Scoppetta. Uno spazio sicuro e non giudicante per dare forma alle emozioni, ridurre lo stress e ritrovare equilibrio." 
+} = Astro.props;
+
+const base = import.meta.env.BASE_URL;
+const faviconUrl = base === '/' ? '/favicon.svg' : `${base}/favicon.svg`;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!DOCTYPE html>
+<html lang="it" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href={faviconUrl} />
+    <meta name="generator" content={Astro.generator} />
+    
+    <!-- Meta tag fondamentali per la SEO -->
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+    
+    <!-- Meta tag per condivisione social (WhatsApp/Facebook/LinkedIn) -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Cristiana Scoppetta - Arteterapia" />
+    <meta property="og:locale" content="it_IT" />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+</head>
+<body class="bg-stone-50 text-stone-800 font-sans antialiased min-h-screen flex flex-col">
+    
+    <Header />
+
+    <main class="grow">
+        <slot />
+    </main>
+    
+    <FooterUniversale />
+</body>
+</html>

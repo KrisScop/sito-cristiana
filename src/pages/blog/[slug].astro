@@ -1,0 +1,134 @@
+---
+// src/pages/blog/[slug].astro
+export const prerender = true;
+
+import BaseLayout from '../../layouts/blog/BaseLayout.astro';
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import { Image } from 'astro:assets';
+
+const base = import.meta.env.BASE_URL;
+const link = (path: string) => base === '/' ? path : `${base.replace(/\/$/, '')}${path.startsWith('/') ? '' : '/'}${path}`;
+
+export async function getStaticPaths() {
+  const articoli = await getCollection('blog');
+  return articoli
+    .filter((articolo: CollectionEntry<'blog'>) => !articolo.data.bozza)
+    .map((articolo: CollectionEntry<'blog'>) => ({
+      params: { slug: articolo.id }, 
+      props: { articolo },           
+    }));
+}
+
+interface Props {
+  articolo: CollectionEntry<'blog'>;
+}
+
+const { articolo } = Astro.props as Props;
+const { Content } = await render(articolo);
+
+function formattaData(data: Date | undefined | null) {
+  if (!data) return '';
+  return data.toLocaleDateString('it-IT', { day: 'numeric', month: 'long', year: 'numeric' });
+}
+
+const etichettaCategoria = 
+  articolo.data.categoria === 'arteterapia' ? 'Arteterapia' :
+  articolo.data.categoria === 'artista' ? 'Ricerca Artistica' : 'Riflessioni';
+---
+
+<BaseLayout 
+  title={`${articolo.data.titolo} | Blog Cristiana Scoppetta`} 
+  description={articolo.data.riassunto}
+  categoria={articolo.data.categoria}
+>
+  
+  <article class="py-16 md:py-20 px-4 bg-white">
+    <div class="max-w-3xl mx-auto">
+
+      {articolo.data.immagineCopertina && (
+        <div class="mb-12">
+          <Image 
+            src={articolo.data.immagineCopertina} 
+            alt={articolo.data.titolo} 
+            class="w-full h-72 md:h-112 object-cover rounded-3xl shadow-sm" 
+          />
+        </div>
+      )}
+      
+      <header class="text-center mb-12">
+        <div class="flex justify-center items-center gap-3 mb-4">
+          <span class="text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full bg-beige text-terracotta">
+            {etichettaCategoria}
+          </span>
+          {articolo.data.dataPubblicazione && (
+            <span class="text-sm text-salvia font-semibold uppercase tracking-widest">
+              {formattaData(articolo.data.dataPubblicazione)}
+            </span>
+          )}
+        </div>
+
+        <h1 class="text-3xl md:text-5xl font-bold font-serif text-stone-900 leading-tight mb-6">
+          {articolo.data.titolo}
+        </h1>
+
+        {articolo.data.riassunto && (
+          <p class="text-lg md:text-xl text-stone-600 font-light leading-relaxed">
+            {articolo.data.riassunto}
+          </p>
+        )}
+      </header>
+
+      <div class="prose prose-lg mx-auto font-light text-stone-700" data-base={base}>
+        <Content />
+      </div>
+      
+      <div class="mt-16 border-t border-stone-200 pt-10 flex flex-col sm:flex-row justify-between items-center gap-4">
+        <a href={link('/blog/')} class="inline-block bg-beige text-stone-700 px-6 py-3 rounded-full font-medium hover:bg-stone-200 transition-colors text-sm">
+          &larr; Torna a tutti gli articoli
+        </a>
+
+        {articolo.data.categoria === 'arteterapia' && (
+          <a href={link('/arteterapia/percorsi')} class="inline-block bg-teal-700 text-white px-6 py-3 rounded-full font-medium hover:bg-teal-800 transition-colors text-sm">
+            Scopri i percorsi di Arteterapia &rarr;
+          </a>
+        )}
+
+        {articolo.data.categoria === 'artista' && (
+          <a href={link('/artista/portfolio')} class="inline-block bg-zinc-900 text-white px-6 py-3 rounded-full font-medium hover:bg-zinc-700 transition-colors text-sm">
+            Esplora il Portfolio Opere &rarr;
+          </a>
+        )}
+      </div>
+
+    </div>
+  </article>
+
+</BaseLayout>
+
+<script>
+  const proseContainer = document.querySelector('.prose') as HTMLElement | null;
+  if (proseContainer) {
+    const base = proseContainer.dataset.base || '/';
+    if (base !== '/') {
+      const cleanBase = base.replace(/\/$/, '');
+      proseContainer.querySelectorAll('img').forEach((img) => {
+        const src = img.getAttribute('src');
+        if (src && src.startsWith('/immagini-blog/')) {
+          img.setAttribute('src', `${cleanBase}${src}`);
+        }
+      });
+    }
+  }
+</script>
+
+<style is:global>
+  .prose p { margin-bottom: 1.5em; line-height: 1.8; }
+  .prose h2 { font-family: 'Playfair Display', serif; font-size: 2rem; color: #1c1917; margin-top: 2em; margin-bottom: 0.5em; }
+  .prose h3 { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: #292524; margin-top: 1.5em; margin-bottom: 0.5em; }
+  .prose strong { font-weight: 600; color: #1c1917; }
+  .prose ul { list-style-type: disc; padding-left: 1.5em; margin-bottom: 1.5em; }
+  .prose li { margin-bottom: 0.5em; }
+  .prose a { color: #D97757; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; }
+  .prose a:hover { color: #b86246; }
+  .prose img { border-radius: 1rem; margin: 2rem auto; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); }
+</style>

@@ -1,0 +1,26 @@
+---
+// src/components/blog/Header.astro (Sezione Blog Unificato)
+const base = import.meta.env.BASE_URL;
+const link = (path: string) => base === '/' ? path : `${base.replace(/\/$/, '')}${path.startsWith('/') ? '' : '/'}${path}`;
+---
+
+<header class="bg-white sticky top-0 z-50 border-b border-stone-200 shadow-xs">
+  <div class="max-w-6xl mx-auto px-4 py-4 flex flex-col md:flex-row justify-between items-center gap-3">
+    
+    <!-- Titolo / Brand che riporta alla Home del Blog -->
+    <div class="flex items-baseline gap-2.5">
+      <a href={link('/blog')} class="text-2xl font-serif text-stone-800 font-bold hover:text-terracotta transition-colors">
+        Cristiana Scoppetta
+      </a>
+      <span class="text-xs uppercase tracking-widest text-stone-400 font-medium">Blog</span>
+    </div>
+
+    <!-- Navigazione trasversale tra Blog, Arteterapia e Artista -->
+    <nav class="flex flex-wrap justify-center items-center gap-5 md:gap-8 text-xs md:text-sm uppercase tracking-wider font-medium text-stone-600">
+      <a href={link('/blog')} class="hover:text-terracotta transition-colors">Tutti gli Articoli</a>
+      <a href={link('/arteterapia')} class="hover:text-teal-700 transition-colors">Arteterapia</a>
+      <a href={link('/artista')} class="hover:text-zinc-900 transition-colors">Artista</a>
+    </nav>
+    
+  </div>
+</header>

@@ -1,0 +1,52 @@
+---
+// src/pages/artista/portfolio.astro
+export const prerender = true;
+
+import Layout from '../../layouts/artista/Layout.astro';
+
+const base = import.meta.env.BASE_URL;
+const link = (path: string) => base === '/' ? path : `${base.replace(/\/$/, '')}${path.startsWith('/') ? '' : '/'}${path}`;
+---
+
+<Layout
+  title="Portfolio Opere | Cristiana Scoppetta - Artista"
+  description="Archivio selezionato delle opere pittoriche, lavori materici e installazioni di Cristiana Scoppetta."
+>
+  <section class="max-w-7xl mx-auto px-6 py-16">
+    <h1 class="text-3xl font-sans tracking-wide uppercase text-zinc-900 mb-12">Portfolio / Opere</h1>
+    
+    <!-- Griglia archivio opere -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      
+      <!-- Opera 1 -->
+      <div class="group">
+        <div class="aspect-4/3 bg-zinc-100 mb-3 flex items-center justify-center text-zinc-400 text-xs tracking-widest">[ Opera 01 ]</div>
+        <h2 class="text-sm font-medium text-zinc-900 font-sans">Senza Titolo, 2025</h2>
+        <p class="text-xs text-zinc-500">Tecnica mista su tela</p>
+      </div>
+
+      <!-- Opera 2 -->
+      <div class="group">
+        <div class="aspect-4/3 bg-zinc-100 mb-3 flex items-center justify-center text-zinc-400 text-xs tracking-widest">[ Opera 02 ]</div>
+        <h2 class="text-sm font-medium text-zinc-900 font-sans">Memoria Urbana, 2024</h2>
+        <p class="text-xs text-zinc-500">Pittura materica</p>
+      </div>
+
+      <!-- Opera 3 -->
+      <div class="group">
+        <div class="aspect-4/3 bg-zinc-100 mb-3 flex items-center justify-center text-zinc-400 text-xs tracking-widest">[ Opera 03 ]</div>
+        <h2 class="text-sm font-medium text-zinc-900 font-sans">Tracce, 2024</h2>
+        <p class="text-xs text-zinc-500">Installazione</p>
+      </div>
+
+    </div>
+
+    <!-- Box richiesta disponibilità opere -->
+    <div class="mt-20 pt-10 border-t border-zinc-100 flex flex-col sm:flex-row justify-between items-center gap-4 text-sm text-zinc-600">
+      <p>Per informazioni sulle opere disponibili o per richiedere il catalogo aggiornato:</p>
+      <a href={link('/artista/contact')} class="text-xs uppercase tracking-widest bg-zinc-900 text-white px-6 py-3 hover:bg-zinc-700 transition-colors shrink-0">
+        Contatta lo Studio &rarr;
+      </a>
+    </div>
+  </section>
+</Layout>

@@ -1,0 +1,46 @@
+---
+// src/pages/artista/index.astro
+export const prerender = true;
+
+import Layout from '../../layouts/artista/Layout.astro';
+
+const base = import.meta.env.BASE_URL;
+const link = (path: string) => base === '/' ? path : `${base.replace(/\/$/, '')}${path.startsWith('/') ? '' : '/'}${path}`;
+---
+
+<Layout
+  title="Cristiana Scoppetta | Contemporary Artist"
+  description="Sito ufficiale e portfolio di Cristiana Scoppetta, artista visiva contemporanea. Pittura materica, installazioni e ricerca sull'essere umano."
+>
+  <!-- HOMEPAGE ARTISTA - Il concetto di "White Cube" -->
+  <section class="min-h-[85vh] flex flex-col items-center justify-center px-6 py-12">
+    
+    <!-- Contenitore dell'Opera Protagonista -->
+    <div class="w-full max-w-6xl aspect-4/3 md:aspect-video bg-zinc-100 flex items-center justify-center relative group overflow-hidden">
+        
+        <span class="text-zinc-400 font-mono text-sm tracking-widest">[ Immagine Opera Protagonista ]</span>
+        
+        <!-- Overlay interattivo con link compatibile Aruba (/saa) -->
+        <a href={link('/artista/portfolio')} class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 bg-white/20 backdrop-blur-sm transition-all duration-700">
+            <span class="bg-zinc-900 text-white px-8 py-3 text-sm uppercase tracking-widest hover:bg-zinc-800 transition-colors">
+                Esplora il Portfolio
+            </span>
+        </a>
+        
+    </div>
+
+    <!-- Didascalia Minimalista -->
+    <div class="max-w-6xl w-full mt-6 flex flex-col sm:flex-row justify-between items-start text-zinc-500 text-sm gap-4">
+        <div>
+            <h2 class="text-zinc-900 font-medium text-base font-sans">Titolo dell'Opera Rappresentativa</h2>
+            <p class="mt-1">Tecnica mista su tela, 120x80 cm, 2026</p>
+        </div>
+        
+        <!-- Link testuale alternativo compatibile Aruba (/saa) -->
+        <a href={link('/artista/portfolio')} class="hover:text-zinc-900 transition-colors uppercase tracking-widest text-xs border-b border-transparent hover:border-zinc-900 pb-1">
+            Vedi archivio completo &rarr;
+        </a>
+    </div>
+
+  </section>
+</Layout>

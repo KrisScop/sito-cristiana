@@ -1,0 +1,87 @@
+---
+// src/components/arteterapia/Header.astro - Responsive con Menu a due linee
+const base = import.meta.env.BASE_URL;
+const link = (path: string) => base === '/' ? path : `${base.replace(/\/$/, '')}${path.startsWith('/') ? '' : '/'}${path}`;
+---
+
+<header class="bg-white sticky top-0 z-50 shadow-sm">
+  <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+    
+    <!-- Logo / Nome -->
+    <a href={link('/arteterapia')} class="text-2xl md:text-3xl font-serif text-stone-800 font-bold hover:text-teal-700 transition-colors z-50">
+      Cristiana Scoppetta
+    </a>
+
+    <!-- Menu Desktop -->
+    <nav class="hidden md:flex gap-8 font-sans font-medium text-sm text-stone-600 uppercase tracking-wider items-center">
+      <a href={link('/arteterapia/chi-sono')} class="hover:text-teal-600 transition-colors">Chi Sono</a>
+      <a href={link('/arteterapia/percorsi')} class="hover:text-teal-600 transition-colors">Cosa offro</a>
+      <a href={link('/arteterapia/metodologie')} class="hover:text-teal-600 transition-colors">Metodologie</a>
+      <a href={link('/blog')} class="hover:text-teal-600 transition-colors">Blog</a>
+      <a href={link('/arteterapia/contatti')} class="hover:text-teal-600 transition-colors">Contattami</a>
+    </nav>
+    
+    <!-- Bottone Hamburger a DUE linee (Mobile) -->
+    <button id="mobile-menu-toggle" class="md:hidden flex flex-col items-center justify-center p-2 z-50" aria-label="Menu">
+      <div class="flex flex-col gap-1.5 items-center">
+        <span class="line block w-8 h-0.75 bg-stone-900 transition-transform duration-300 origin-center rounded-sm"></span>
+        <span class="line block w-8 h-0.75 bg-stone-900 transition-transform duration-300 origin-center rounded-sm"></span>
+      </div>
+      <span class="text-[10px] font-bold tracking-widest text-stone-900 mt-1 uppercase">Menu</span>
+    </button>
+
+  </div>
+</header>
+
+<!-- Overlay Scuro -->
+<div id="mobile-menu-overlay" class="fixed inset-0 bg-stone-900/60 z-40 hidden opacity-0 transition-opacity duration-300 md:hidden"></div>
+
+<!-- Menu Laterale Mobile (Drawer) -->
+<aside id="mobile-menu-drawer" class="fixed top-17 left-0 w-[75%] max-w-sm h-[calc(100vh-68px)] bg-white z-40 transform -translate-x-full transition-transform duration-300 border-t-4 border-cyan-500 shadow-2xl md:hidden overflow-y-auto">
+  <nav class="flex flex-col pt-6 px-6 font-sans text-stone-600 text-lg uppercase tracking-wider">
+    <a href={link('/arteterapia/chi-sono')} class="block py-4 border-b border-stone-200 hover:text-cyan-600">Chi Sono</a>
+    <a href={link('/arteterapia/percorsi')} class="block py-4 border-b border-stone-200 hover:text-cyan-600">Cosa offro</a>
+    <a href={link('/arteterapia/metodologie')} class="block py-4 border-b border-stone-200 hover:text-cyan-600">Metodologie</a>
+    <a href={link('/blog')} class="block py-4 border-b border-stone-200 hover:text-cyan-600">Blog</a>
+    <a href={link('/arteterapia/contatti')} class="block py-4 hover:text-cyan-600">Contattami</a>
+  </nav>
+</aside>
+
+<script>
+  const toggleBtn = document.getElementById('mobile-menu-toggle');
+  const drawer = document.getElementById('mobile-menu-drawer');
+  const overlay = document.getElementById('mobile-menu-overlay');
+
+  if (toggleBtn && drawer && overlay) {
+    const lines = toggleBtn.querySelectorAll('.line');
+    let isOpen = false;
+
+    function toggleMenu() {
+      isOpen = !isOpen;
+      
+      if (isOpen) {
+        drawer!.classList.remove('-translate-x-full');
+        overlay!.classList.remove('hidden');
+        setTimeout(() => { overlay!.classList.remove('opacity-0'); overlay!.classList.add('opacity-100'); }, 10);
+
+        if (lines.length >= 2) {
+          lines[0].classList.add('translate-y-[4.5px]', 'rotate-45');
+          lines[1].classList.add('-translate-y-[4.5px]', '-rotate-45');
+        }
+      } else {
+        drawer!.classList.add('-translate-x-full');
+        overlay!.classList.remove('opacity-100');
+        overlay!.classList.add('opacity-0');
+        setTimeout(() => { overlay!.classList.add('hidden'); }, 300);
+
+        if (lines.length >= 2) {
+          lines[0].classList.remove('translate-y-[4.5px]', 'rotate-45');
+          lines[1].classList.remove('-translate-y-[4.5px]', '-rotate-45');
+        }
+      }
+    }
+
+    toggleBtn.addEventListener('click', toggleMenu);
+    overlay.addEventListener('click', toggleMenu);
+  }
+</script>
