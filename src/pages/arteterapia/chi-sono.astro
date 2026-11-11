@@ -3,9 +3,49 @@
 export const prerender = true;
 
 import Layout from '../../layouts/arteterapia/Layout.astro';
+import { Image } from 'astro:assets';
+
+// Importazione attestati e info dalla cartella src/assets/arteterapia/
+import imgDiario from '../../assets/arteterapia/attestato-formatore-diario-interiore-cristiana-scoppetta.png';
+import imgMandalaMaster from '../../assets/arteterapia/attestato-master-mandala-cristiana-scoppetta.png';
+import imgMandalaFormatore from '../../assets/arteterapia/iscritto-formatore-metodo-evolutionmandala-cristiana-scoppetta.png';
+import imgEvolutioncards from '../../assets/arteterapia/iscritto-master-evolutioncards-cristiana-scoppetta.png';
 
 const base = import.meta.env.BASE_URL;
 const link = (path: string) => base === '/' ? path : `${base.replace(/\/$/, '')}${path.startsWith('/') ? '' : '/'}${path}`;
+
+const specializzazioni = [
+  {
+    titolo: "Formatore del Diario Creativo Interiore©",
+    immagine: imgDiario,
+    alt: "Attestato Formatore del Diario Creativo Interiore - Cristiana Scoppetta",
+    testoBottone: "Vedi attestato"
+  },
+  {
+    titolo: "Master in Mandala metodo Evolutionmandala®",
+    immagine: imgMandalaMaster,
+    alt: "Attestato Master in Mandala metodo Evolutionmandala - Cristiana Scoppetta",
+    testoBottone: "Vedi attestato"
+  },
+  {
+    titolo: "Iscritto a Formatore metodo Evolutionmandala®",
+    immagine: imgMandalaFormatore,
+    alt: "Iscritto a Formatore metodo Evolutionmandala - Cristiana Scoppetta",
+    testoBottone: "Maggiori info"
+  },
+  {
+    titolo: "Iscritto a Master Evolutioncards",
+    immagine: imgEvolutioncards,
+    alt: "Iscritto a Master Evolutioncards - Cristiana Scoppetta",
+    testoBottone: "Maggiori info"
+  },
+  {
+    titolo: "Iscritto a coach ADHD",
+    immagine: null,
+    alt: "",
+    testoBottone: ""
+  }
+];
 ---
 
 <Layout 
@@ -17,7 +57,7 @@ const link = (path: string) => base === '/' ? path : `${base.replace(/\/$/, '')}
     
     <div class="space-y-6 text-stone-700 text-lg leading-relaxed font-sans">
       <p>
-        Benvenuto. Sono <strong>Cristiana Scoppetta</strong>, artista, sociologa e arteterapeuta in formazione.
+        Benvenuti, sono <strong>Cristiana Scoppetta</strong>, artista, sociologa (iscr. n. 1581) e laureata in psicologia, oggi arteterapeuta in formazione.
       </p>
       
       <p>
@@ -26,12 +66,59 @@ const link = (path: string) => base === '/' ? path : `${base.replace(/\/$/, '')}
 
       <h2 class="text-2xl font-serif text-stone-800 pt-4">Dall'esperienza personale alla relazione d'aiuto</h2>
       <p>
-        Dopo anni dedicati alla ricerca artistica e all'insegnamento dell'arte a bambini e adulti, nel 2020 ho sperimentato in prima persona un percorso di arteterapia. Quell'esperienza mi ha mostrato quanto il processo creativo — libero dal giudizio estetico e dal bisogno di "fare qualcosa di bello" — permetta di dare forma e voce a ciò che spesso le parole non riescono a esprimere.
+        Dopo anni dedicati alla ricerca artistica e all'insegnamento della creatività a bambini e adulti, nel 2020 ho sperimentato in prima persona un percorso di arteterapia. Quell'esperienza mi ha mostrato quanto il processo creativo — libero dal giudizio estetico e dal bisogno di "fare qualcosa di bello" — permetta di dare forma e voce a ciò che spesso le parole non riescono a esprimere.
       </p>
 
       <p>
         Oggi integro queste competenze frequentando la scuola triennale di Arteterapia presso <a href="https://evolutionaccademia.it/" target="_blank" rel="noopener noreferrer" class="text-teal-700 underline hover:text-teal-900">Evolution Accademia</a> a Udine (percorso formativo conforme alla norma UNI 11592), accompagnando le persone in spazi protetti di ascolto, espressione libera e crescita personale.
       </p>
+
+      <!-- SEZIONE SPECIALIZZAZIONI -->
+      <div class="pt-6">
+        <h2 class="text-2xl font-serif text-stone-800 mb-2">Specializzazioni</h2>
+        <p class="text-sm text-stone-500 mb-4">
+          Passa con il mouse o tocca le voci contrassegnate per visualizzare gli attestati e i dettagli.
+        </p>
+
+        <ul class="space-y-3">
+          {specializzazioni.map((item) => (
+            <li class="spec-item group bg-white border border-stone-200 rounded-xl p-4 shadow-2xs transition-all hover:border-teal-600/50">
+              {item.immagine ? (
+                <div>
+                  <button 
+                    type="button"
+                    class="spec-toggle w-full text-left flex items-center justify-between gap-3 font-medium text-stone-800 hover:text-teal-700 transition-colors cursor-pointer"
+                    aria-expanded="false"
+                  >
+                    <span class="flex items-center gap-3">
+                      <span class="text-teal-600">&#x27A4;</span>
+                      <span>{item.titolo}</span>
+                    </span>
+                    <span class="text-xs font-normal text-teal-700 bg-teal-50 px-2.5 py-1 rounded-full shrink-0">
+                      {item.testoBottone}
+                    </span>
+                  </button>
+
+                  <!-- Contenitore immagine: si apre in hover su PC o al click su Mobile/PC -->
+                  <div class="spec-preview hidden group-hover:block mt-4 pt-4 border-t border-stone-100">
+                    <Image 
+                      src={item.immagine} 
+                      alt={item.alt} 
+                      class="w-full max-w-md mx-auto h-auto rounded-lg shadow-md border border-stone-200"
+                      width={700}
+                    />
+                  </div>
+                </div>
+              ) : (
+                <div class="flex items-center gap-3 font-medium text-stone-800">
+                  <span class="text-teal-600">&#x27A4;</span>
+                  <span>{item.titolo}</span>
+                </div>
+              )}
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
 
     <div class="mt-12 pt-8 border-t border-stone-200 flex flex-wrap gap-4">
@@ -44,3 +131,33 @@ const link = (path: string) => base === '/' ? path : `${base.replace(/\/$/, '')}
     </div>
   </section>
 </Layout>
+
+<script>
+  // Gestione apertura/chiusura al click o tocco (utile su smartphone e per fissare l'immagine su PC)
+  document.querySelectorAll('.spec-item').forEach((item) => {
+    const btn = item.querySelector('.spec-toggle');
+    const preview = item.querySelector('.spec-preview');
+
+    if (btn && preview) {
+      btn.addEventListener('click', () => {
+        const isClosed = preview.classList.contains('hidden');
+        
+        // Chiude eventuali altri riquadri aperti via click
+        document.querySelectorAll('.spec-preview').forEach((el) => {
+          el.classList.add('hidden');
+          el.classList.remove('block');
+        });
+        document.querySelectorAll('.spec-toggle').forEach((b) => {
+          b.setAttribute('aria-expanded', 'false');
+        });
+
+        // Se era chiuso, lo apre
+        if (isClosed) {
+          preview.classList.remove('hidden');
+          preview.classList.add('block');
+          btn.setAttribute('aria-expanded', 'true');
+        }
+      });
+    }
+  });
+</script>

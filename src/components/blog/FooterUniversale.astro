@@ -95,7 +95,15 @@ const link = (path: string) => base === '/' ? path : `${base.replace(/\/$/, '')}
       <h4 class="text-lg text-white! mb-4 font-serif">I miei mondi</h4>
       <ul class="space-y-2 text-sm">
         <li><a href={link('/arteterapia')} class="hover:text-white transition-colors">Arteterapia (Il percorso)</a></li>
-        <li><a href={link('/artista')} class="hover:text-white transition-colors">Artista (Il portfolio)</a></li>
+        
+        <!-- Link Artista temporaneamente disattivato -->
+        <!-- <li><a href={link('/artista')} class="hover:text-white transition-colors">Artista (Il portfolio)</a></li> -->
+        <li>
+          <span class="text-stone-500 cursor-not-allowed select-none" aria-disabled="true">
+            Artista (Il portfolio — in arrivo)
+          </span>
+        </li>
+
         <li><a href={link('/blog')} class="hover:text-white transition-colors">Blog (Articoli e riflessioni)</a></li>
         <li><a href="https://www.arteliberatuttiitalia.it/alti" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">Associazione Arte Libera Tutti</a></li>
       </ul>

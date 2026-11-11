@@ -15,11 +15,15 @@ const link = (path: string) => base === '/' ? path : `${base.replace(/\/$/, '')}
       <span class="text-xs uppercase tracking-widest text-stone-400 font-medium">Blog</span>
     </div>
 
-    <!-- Navigazione trasversale tra Blog, Arteterapia e Artista -->
+    <!-- Navigazione trasversale verso Arteterapia e Artista -->
     <nav class="flex flex-wrap justify-center items-center gap-5 md:gap-8 text-xs md:text-sm uppercase tracking-wider font-medium text-stone-600">
-      <a href={link('/blog')} class="hover:text-terracotta transition-colors">Tutti gli Articoli</a>
       <a href={link('/arteterapia')} class="hover:text-teal-700 transition-colors">Arteterapia</a>
-      <a href={link('/artista')} class="hover:text-zinc-900 transition-colors">Artista</a>
+      
+      <!-- Link Artista temporaneamente disattivato -->
+      <!-- <a href={link('/artista')} class="hover:text-zinc-900 transition-colors">Artista</a> -->
+      <span class="text-stone-400 cursor-not-allowed select-none" aria-disabled="true" title="Sezione in arrivo">
+        Artista <span class="text-[10px] lowercase font-normal tracking-normal">(in arrivo)</span>
+      </span>
     </nav>
     
   </div>

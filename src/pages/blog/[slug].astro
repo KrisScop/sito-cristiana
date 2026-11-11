@@ -93,10 +93,18 @@ const etichettaCategoria =
           </a>
         )}
 
-        {articolo.data.categoria === 'artista' && (
+        {/* Link Portfolio Opere temporaneamente disattivato:
           <a href={link('/artista/portfolio')} class="inline-block bg-zinc-900 text-white px-6 py-3 rounded-full font-medium hover:bg-zinc-700 transition-colors text-sm">
             Esplora il Portfolio Opere &rarr;
           </a>
+        */}
+        {articolo.data.categoria === 'artista' && (
+          <span 
+            class="inline-block bg-stone-100 text-stone-400 border border-stone-200 px-6 py-3 rounded-full font-medium text-sm cursor-not-allowed select-none" 
+            aria-disabled="true"
+          >
+            Portfolio Opere (in arrivo)
+          </span>
         )}
       </div>
 
